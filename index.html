@@ -1,17 +1,37 @@
-<!-- index.html — iframe embed (HTTP 200). May be blocked if target disallows framing -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Loading…</title>
-  <meta name="robots" content="noindex, nofollow">
-  <style>html,body{height:100%;margin:0}iframe{border:0;width:100%;height:100vh}</style>
+  <title>Status Simulator</title>
+  <style>
+    body{font-family:system-ui;text-align:center;padding:4rem}
+    select,button{font-size:1rem;margin:1rem;padding:.5rem 1rem}
+  </style>
 </head>
 <body>
-  <!-- change TARGET_URL to your destination -->
-  <iframe src="https://freednstest.denvorsmith289.workers.dev" title="Embedded"></iframe>
-  <noscript>
-    <p>Your browser doesn't support JavaScript. <a href="https://freednstest.denvorsmith289.workers.dev">Open here</a>.</p>
-  </noscript>
+  <h1>HTTP Status Simulator</h1>
+  <p>Select a status code to “load”:</p>
+  <select id="code">
+    <option value="200">200 OK</option>
+    <option value="301">301 Moved Permanently</option>
+    <option value="302">302 Found</option>
+    <option value="403">403 Forbidden</option>
+    <option value="404">404 Not Found</option>
+    <option value="500">500 Internal Server Error</option>
+  </select>
+  <button onclick="simulate()">Load</button>
+  <pre id="output"></pre>
+
+  <script>
+    function simulate(){
+      const code=document.getElementById('code').value;
+      document.getElementById('output').textContent=`Simulated HTTP status: ${code}`;
+      document.title=`${code} • Status Simulator`;
+      // Optional: redirect or show different content
+      if(code==='301'||code==='302'){
+        location.href='https://example.com'; // change if you want
+      }
+    }
+  </script>
 </body>
 </html>
